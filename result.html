@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Top 1 — COLOR Songters</title>
+  <meta name="theme-color" content="#f3e7d4" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="result">
+  <header class="site-head">
+    <div class="brand">
+      <img src="assets/cover.jpg" alt="COLOR album cover" class="cover">
+      <div>
+        <h1>Your Top Song</h1>
+        <p class="sub">from NCT WISH — COLOR</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="result-wrap">
+    <div id="top-card" class="card"></div>
+
+    <section class="cta-stream">
+      <h2>Stream the full album</h2>
+      <div class="cta-row">
+        <a class="cta" target="_blank" rel="noopener" href="https://open.spotify.com/album/4GdJ84W6JMo6AbX2i7vL5A">Spotify</a>
+        <a class="cta" target="_blank" rel="noopener" href="https://music.youtube.com/playlist?list=OLAK5uy_m0XwBydDlmv1mZxJSzjBsn1l9qp0nJx3U">YouTube Music</a>
+        <a class="cta" target="_blank" rel="noopener" href="https://music.apple.com/album/color-the-3rd-mini-album/1762399123">Apple Music</a>
+      </div>
+    </section>
+
+    <section class="share">
+      <button id="shareBtn" class="primary">Share my Top 1</button>
+      <button id="saveImg" class="ghost">Save as Image</button>
+      <a href="index.html" class="ghost">Sort again</a>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="result.js"></script>
+</body>
+</html>
