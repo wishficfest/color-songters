@@ -8,24 +8,25 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="site-head">
-    <div class="brand">
-      <img src="assets/cover.jpg" alt="COLOR album cover" class="cover">
-      <div>
-        <h1>NCT WISH — COLOR</h1>
-        <p class="sub">This or that, Color album💛❤️🩷💜💚💙</p>
+  <div class="container">
+    <header class="site-head">
+      <div class="brand">
+        <img src="assets/cover.jpg" alt="COLOR album cover" class="cover">
+        <div>
+          <h1>NCT WISH — COLOR</h1>
+          <p class="sub">This-or-that · Color album 💙💚💜💗💛</p>
+        </div>
       </div>
-    </div>
-    <progress id="prog" max="100" value="0"></progress>
-  </header>
+      <progress id="prog" max="100" value="0" aria-label="progress"></progress>
+    </header>
 
-  <main class="arena" id="arena"></main>
+    <main class="arena" id="arena" aria-live="polite"></main>
 
-  <footer class="site-foot">
-    <p>Tap “Choose” to decide, or preview on Spotify.</p>
-    <button id="restart" class="ghost">Restart</button>
-  </footer>
-
+    <footer class="site-foot">
+      <p>Tap <b>Choose</b> to decide, or preview on Spotify.</p>
+      <button id="restart" class="ghost">Restart</button>
+    </footer>
+  </div>
   <script src="sorter.js"></script>
 </body>
 </html>
