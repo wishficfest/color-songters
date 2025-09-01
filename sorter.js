@@ -5,6 +5,17 @@ const startBtn   = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restart');
 const hint       = document.getElementById('hint');
 
+// ====== SAFE FALLBACK TRACKS (dipakai kalau songs.json gagal) ======
+const fallbackTracks = [
+  { id: "color",      title: "COLOR",      spotifyEmbed: "" },
+  { id: "baby-blue",  title: "Baby Blue",  spotifyEmbed: "" },
+  { id: "surf",       title: "Surf",       spotifyEmbed: "" },
+  { id: "cheat-code", title: "Cheat Code", spotifyEmbed: "" },
+  { id: "videohood",  title: "Videohood",  spotifyEmbed: "" },
+  { id: "wichu",      title: "WICHU",      spotifyEmbed: "" },
+  { id: "reel",       title: "고양이 릴스 Reel-ationship", spotifyEmbed: "" }
+];
+
 // ====== STATE ======
 let tracks = [];
 let queue  = [];   // pairs of indexes
@@ -15,13 +26,39 @@ startBtn?.addEventListener('click', startGame);
 restartBtn?.addEventListener('click', () => location.reload());
 
 async function startGame(){
-  // UI: hide start screen, show progress + restart
+  // UI: show loading
+  const loading = document.createElement('p');
+  loading.textContent = 'Loading songs…';
+  loading.style.textAlign = 'center';
   arena.innerHTML = '';
+  arena.appendChild(loading);
+
+  // show progress + restart
   prog.classList.remove('hide');
   restartBtn.classList.remove('hide');
 
-  // load songs
-  tracks = await fetch('songs.json').then(r=>r.json());
+  try {
+    tracks = await loadTracksJSON();
+  } catch (e) {
+    console.error('Failed to load songs.json → using fallback:', e);
+    tracks = fallbackTracks;
+  }
+
+  // validate
+  if (!Array.isArray(tracks) || tracks.length < 2) {
+    arena.innerHTML = `
+      <div style="text-align:center;padding:24px">
+        <h3>Can’t start</h3>
+        <p>We couldn’t load the track list. Check <code>songs.json</code> is present and valid.</p>
+        <p class="muted">Tip: file di root repo & JSON tanpa koma terakhir.</p>
+        <button class="primary" id="retryBtn">Retry</button>
+      </div>
+    `;
+    document.getElementById('retryBtn').onclick = () => location.reload();
+    return;
+  }
+
+  // init state
   scores = {};
   tracks.forEach(t => scores[t.id] = 0);
 
@@ -38,12 +75,22 @@ async function startGame(){
   renderNext();
 }
 
+// robust loader with helpful errors
+async function loadTracksJSON(){
+  const res = await fetch('songs.json?cache=' + Date.now(), { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status} loading songs.json`);
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    throw new Error('Invalid JSON in songs.json (cek trailing comma/komentar)');
+  }
+  return data;
+}
+
 // ====== RENDERING ======
 function renderNext(){
-  if (queue.length === 0){
-    finish();
-    return;
-  }
+  if (queue.length === 0){ finish(); return; }
 
   const [ai, bi] = queue[0];
   const A = tracks[ai];
@@ -73,13 +120,15 @@ function renderNext(){
       e.stopPropagation(); // prevent picking card
       const tag = btn.getAttribute('data-play');
       const el  = document.getElementById(`prev${tag}`);
-      const url = (tag === 'A') ? A.spotifyEmbed : B.spotifyEmbed;
-      if (url){
+      const song = (tag === 'A') ? A : B;
+      const url = song.spotifyEmbed;
+
+      if (url && /^https:\/\/open\.spotify\.com\/embed\/track\//.test(url)){
         if (!el.src) el.src = url;
         el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
       } else {
-        // no embed: open search
-        window.open(`https://open.spotify.com/search/${encodeURIComponent('NCT WISH ' + ((tag==='A')?A.title:B.title))}`, '_blank');
+        // no embed or wrong format → open search
+        window.open(`https://open.spotify.com/search/${encodeURIComponent('NCT WISH ' + song.title)}`, '_blank');
       }
     };
   });
