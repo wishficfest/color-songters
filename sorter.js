@@ -7,13 +7,13 @@ const hint       = document.getElementById('hint');
 
 // ====== SAFE FALLBACK TRACKS (dipakai kalau songs.json gagal) ======
 const fallbackTracks = [
-  { id: "color",      title: "COLOR",      spotifyEmbed: "" },
-  { id: "baby-blue",  title: "Baby Blue",  spotifyEmbed: "" },
-  { id: "surf",       title: "Surf",       spotifyEmbed: "" },
-  { id: "cheat-code", title: "Cheat Code", spotifyEmbed: "" },
-  { id: "videohood",  title: "Videohood",  spotifyEmbed: "" },
-  { id: "wichu",      title: "WICHU",      spotifyEmbed: "" },
-  { id: "reel",       title: "고양이 릴스 Reel-ationship", spotifyEmbed: "" }
+  { id: "color",      title: "COLOR",      spotifyEmbed: "https://open.spotify.com/intl-id/track/7BRP4zawz4T1PhAdj2Nr4Z?si=66dccdf5eb394026" },
+  { id: "baby-blue",  title: "Baby Blue",  spotifyEmbed: "https://open.spotify.com/intl-id/track/5Vhv7grrhFyhTYkXKrNo67?si=ecd31ec29eaa4c04" },
+  { id: "surf",       title: "Surf",       spotifyEmbed: "https://open.spotify.com/intl-id/track/0ONXDvqXoLojpLSRr2npja?si=d2dd272db55a414d" },
+  { id: "cheat-code", title: "Cheat Code", spotifyEmbed: "https://open.spotify.com/intl-id/track/0dE5yWQgpEMBtEiLqsKbL2?si=6ffe6084da694a4b" },
+  { id: "videohood",  title: "Videohood",  spotifyEmbed: "https://open.spotify.com/intl-id/track/348MxMVyHYOKA4XrHJEQAk?si=e040566d6fb84b9" },
+  { id: "wichu",      title: "WICHU",      spotifyEmbed: "https://open.spotify.com/intl-id/track/37bG7biGfYaLebbXIuQbxK?si=3960a101a81144a8" },
+  { id: "reel",       title: "고양이 릴스 Reel-ationship", spotifyEmbed: "https://open.spotify.com/intl-id/track/2lQVBSfjBVCvI245h4oJNi?si=3b3c65dda85f4112" }
 ];
 
 // ====== STATE ======
