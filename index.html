@@ -14,20 +14,31 @@
         <img src="assets/cover.jpg" alt="COLOR album cover" class="cover">
         <div>
           <h1>NCT WISH — COLOR</h1>
-          <p class="sub">This-or-that · Color album 💙💚💜💗💛</p>
+          <p class="sub">Play: <b>This or That</b> · Color album 💙💚💜💗💛</p>
         </div>
       </div>
-      <progress id="prog" max="100" value="0" aria-label="progress"></progress>
+
+      <!-- hidden until game starts -->
+      <progress id="prog" max="100" value="0" class="hide" aria-label="progress"></progress>
     </header>
 
-    <main class="arena" id="arena" aria-live="polite"></main>
-    <img src="assets/cover.jpg" alt="COLOR cover" style="width:100%;max-width:520px;border-radius:20px;box-shadow:var(--shadow);margin:0 auto 12px;display:block;">
+    <main class="arena" id="arena" aria-live="polite">
+      <!-- START SCREEN -->
+      <div class="start-screen">
+        <img src="assets/cover.jpg" alt="COLOR cover" class="hero-cover">
+        <h2>Ready to play <span>COLOR — This or That</span>?</h2>
+        <p>Pick between 2 songs until you find your Top 1 💿</p>
+        <button id="startBtn" class="primary">Start Sorting</button>
+      </div>
+    </main>
 
     <footer class="site-foot">
-      <p>Tap <b>Choose</b> to decide, or preview on Spotify.</p>
-      <button id="restart" class="ghost">Restart</button>
+      <p id="hint" class="muted">Tap <b>Choose</b> to decide, or preview on Spotify.</p>
+      <!-- hidden until game starts -->
+      <button id="restart" class="ghost hide">Restart</button>
     </footer>
   </div>
+
   <script src="sorter.js"></script>
 </body>
 </html>
