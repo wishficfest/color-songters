@@ -89,3 +89,47 @@ button:active, .cta:active{ transform:translateY(1px); }
 body.result .result-wrap{ padding-block:22px; }
 .result .cta-row{ display:flex; flex-wrap:wrap; gap:10px; }
 .share{ display:flex; flex-wrap:wrap; gap:10px; }
+
+/* make arena a 3-column layout on tablet+ so we can put a big OR in the middle */
+@media (min-width:700px){
+  .arena{ 
+    grid-template-columns:1fr auto 1fr; 
+    align-items:start;
+  }
+}
+
+/* middle OR block */
+.or-pill{
+  display:none;
+}
+@media (min-width:700px){
+  .or-pill{
+    display:flex; align-items:center; justify-content:center;
+    width:72px; height:72px; border-radius:999px;
+    background:linear-gradient(180deg,var(--brand),var(--accent));
+    color:#fff; font-weight:800; letter-spacing:.8px;
+    box-shadow:var(--shadow); user-select:none;
+  }
+}
+
+/* make entire card clickable */
+.card{ position:relative; cursor:pointer; }
+.card .title{ pointer-events:none; }
+.card .meta, .card .thumb, .preview{ pointer-events:none; }
+
+/* bigger primary buttons + pulse to guide */
+.primary{
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(106,163,255,.45); }
+  50%{ box-shadow:0 0 0 10px rgba(106,163,255,0); }
+}
+
+/* little “Tap to pick” badge */
+.tap-hint{
+  position:absolute; top:10px; right:10px;
+  font-size:12px; color:#fff; background:rgba(0,0,0,.45);
+  padding:6px 8px; border-radius:999px;
+}
+
