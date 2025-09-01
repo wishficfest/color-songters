@@ -1,9 +1,9 @@
 [
-  { "id": "color",      "title": "COLOR",      "spotifyEmbed": "https://open.spotify.com/embed/track/4kQ0ytWkHxF6np6xR0jJjs" },
-  { "id": "baby-blue",  "title": "Baby Blue",  "spotifyEmbed": "https://open.spotify.com/embed/track/3wZ5CMvBRmTnps1dJzHvKq" },
-  { "id": "surf",       "title": "Surf",       "spotifyEmbed": "https://open.spotify.com/embed/track/6H3T3hWCsx1XMh2GhUnDoW" },
-  { "id": "cheat-code", "title": "Cheat Code", "spotifyEmbed": "https://open.spotify.com/embed/track/6JWdppTQvzzZsUvN0o4VkW" },
-  { "id": "videohood",  "title": "Videohood",  "spotifyEmbed": "https://open.spotify.com/embed/track/2EcK2x0YscpsTFVYjEeHeP" },
-  { "id": "wichu",      "title": "WICHU",      "spotifyEmbed": "https://open.spotify.com/embed/track/2gEnLaQ5SvD7A7I7aYJcHj" },
-  { "id": "reel",       "title": "고양이 릴스 Reel-ationship", "spotifyEmbed": "https://open.spotify.com/embed/track/5znU9k2jD0kHj6WQ5s7pOd" }
+  { "id": "color",      "title": "COLOR",      "spotifyEmbed": "https://open.spotify.com/intl-id/track/7BRP4zawz4T1PhAdj2Nr4Z?si=66dccdf5eb394026" },
+  { "id": "baby-blue",  "title": "Baby Blue",  "spotifyEmbed": "https://open.spotify.com/intl-id/track/5Vhv7grrhFyhTYkXKrNo67?si=ecd31ec29eaa4c04" },
+  { "id": "surf",       "title": "Surf",       "spotifyEmbed": "https://open.spotify.com/intl-id/track/0ONXDvqXoLojpLSRr2npja?si=d2dd272db55a414d" },
+  { "id": "cheat-code", "title": "Cheat Code", "spotifyEmbed": "https://open.spotify.com/intl-id/track/0dE5yWQgpEMBtEiLqsKbL2?si=6ffe6084da694a4b" },
+  { "id": "videohood",  "title": "Videohood",  "spotifyEmbed": "https://open.spotify.com/intl-id/track/348MxMVyHYOKA4XrHJEQAk?si=e040566d6fb84b99" },
+  { "id": "wichu",      "title": "WICHU",      "spotifyEmbed": "https://open.spotify.com/intl-id/track/37bG7biGfYaLebbXIuQbxK?si=3960a101a81144a8" },
+  { "id": "reel",       "title": "고양이 릴스 Reel-ationship", "spotifyEmbed": "https://open.spotify.com/intl-id/track/2lQVBSfjBVCvI245h4oJNi?si=3b3c65dda85f4112" }
 ]
