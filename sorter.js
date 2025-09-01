@@ -5,7 +5,7 @@ const startBtn   = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restart');
 const hint       = document.getElementById('hint');
 
-// ====== SAFE FALLBACK TRACKS (dipakai kalau songs.json gagal) ======
+// ====== SAFE FALLBACK TRACKS (pakai link yang kamu kasih, bebas non-embed) ======
 const fallbackTracks = [
   { id: "color",      title: "COLOR",      spotifyEmbed: "https://open.spotify.com/intl-id/track/7BRP4zawz4T1PhAdj2Nr4Z?si=66dccdf5eb394026" },
   { id: "baby-blue",  title: "Baby Blue",  spotifyEmbed: "https://open.spotify.com/intl-id/track/5Vhv7grrhFyhTYkXKrNo67?si=ecd31ec29eaa4c04" },
@@ -40,9 +40,12 @@ async function startGame(){
   try {
     tracks = await loadTracksJSON();
   } catch (e) {
-    console.error('Failed to load songs.json → using fallback:', e);
+    console.warn('Failed to load songs.json → using fallback:', e);
     tracks = fallbackTracks;
   }
+
+  // normalize semua spotify link → embed
+  tracks = normalizeTracks(tracks);
 
   // validate
   if (!Array.isArray(tracks) || tracks.length < 2) {
@@ -52,8 +55,7 @@ async function startGame(){
         <p>We couldn’t load the track list. Check <code>songs.json</code> is present and valid.</p>
         <p class="muted">Tip: file di root repo & JSON tanpa koma terakhir.</p>
         <button class="primary" id="retryBtn">Retry</button>
-      </div>
-    `;
+      </div>`;
     document.getElementById('retryBtn').onclick = () => location.reload();
     return;
   }
@@ -88,6 +90,27 @@ async function loadTracksJSON(){
   return data;
 }
 
+// ====== SPOTIFY NORMALIZER ======
+function toEmbedUrl(raw){
+  if (!raw || typeof raw !== 'string') return '';
+  // already embed?
+  if (/^https:\/\/open\.spotify\.com\/embed\/track\/[A-Za-z0-9]+/.test(raw)) return raw;
+
+  // accept urls like:
+  // https://open.spotify.com/track/ID
+  // https://open.spotify.com/intl-id/track/ID?si=....
+  const m = raw.match(/^https:\/\/open\.spotify\.com\/(?:[a-z-]+\/)?track\/([A-Za-z0-9]+)\b/i);
+  if (m && m[1]) return `https://open.spotify.com/embed/track/${m[1]}`;
+  return ''; // invalid/unknown format
+}
+
+function normalizeTracks(list){
+  return (list || []).map(t => ({
+    ...t,
+    spotifyEmbed: toEmbedUrl(t.spotifyEmbed)
+  }));
+}
+
 // ====== RENDERING ======
 function renderNext(){
   if (queue.length === 0){ finish(); return; }
@@ -114,28 +137,26 @@ function renderNext(){
   arena.querySelector('#pickA').onclick = ()=> choose(A.id);
   arena.querySelector('#pickB').onclick = ()=> choose(B.id);
 
-  // preview play toggle
+  // preview play toggle (NO SEARCH FALLBACK — hanya pake link yang kamu kasih)
   arena.querySelectorAll('.play-btn').forEach(btn=>{
     btn.onclick = (e)=>{
       e.stopPropagation(); // prevent picking card
       const tag = btn.getAttribute('data-play');
       const el  = document.getElementById(`prev${tag}`);
       const song = (tag === 'A') ? A : B;
-      const url = song.spotifyEmbed;
+      const url = song.spotifyEmbed;   // sudah dinormalisasi ke /embed/track/ID
 
-      if (url && /^https:\/\/open\.spotify\.com\/embed\/track\//.test(url)){
+      if (url){
         if (!el.src) el.src = url;
         el.style.display = (el.style.display === 'none' || !el.style.display) ? 'block' : 'none';
       } else {
-        // no embed or wrong format → open search
-        window.open(`https://open.spotify.com/search/${encodeURIComponent('NCT WISH ' + song.title)}`, '_blank');
+        alert('Preview unavailable: Spotify track URL tidak valid untuk embed.');
       }
     };
   });
 }
 
 function cardHTML(song, tag){
-  const searchUrl = `https://open.spotify.com/search/${encodeURIComponent('NCT WISH ' + song.title)}`;
   return `
   <section class="card" data-pick="${tag}" role="button" aria-label="Choose ${song.title}">
     <div class="thumb-wrap">
@@ -150,7 +171,6 @@ function cardHTML(song, tag){
 
     <div class="actions">
       <button id="pick${tag}" class="primary">Choose This</button>
-      <a class="cta" target="_blank" rel="noopener" href="${searchUrl}">Open in Spotify</a>
     </div>
   </section>`;
 }
